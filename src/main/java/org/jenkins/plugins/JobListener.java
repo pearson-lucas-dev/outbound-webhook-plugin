@@ -32,6 +32,7 @@ public class JobListener extends RunListener<AbstractBuild> {
         String projectName = build.getProject().getDisplayName();
         String buildName = build.getDisplayName();
         NotificationEvent event = new NotificationEvent(projectName, buildName, buildUrl, "start");
+        event.text = projectName + ":" + buildName + " has just started at " +buildUrl;
         httpPost(webHookUrl, event);
     }
 
@@ -52,10 +53,12 @@ public class JobListener extends RunListener<AbstractBuild> {
         NotificationEvent event = new NotificationEvent(projectName, buildName, buildUrl, "");
         if (publisher.onSuccess && result.equals(Result.SUCCESS)) {
             event.event = "success";
+            event.text = projectName + ":" + buildName + " was sucessful at " +buildUrl;
             httpPost(webHookUrl, event);
         }
         if (publisher.onFailure && result.equals(Result.FAILURE)) {
             event.event = "failure";
+            event.text = projectName + ":" + buildName + " failed at " +buildUrl;
             httpPost(webHookUrl, event);
         }
     }
