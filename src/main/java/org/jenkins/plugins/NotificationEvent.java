@@ -6,10 +6,12 @@ public class NotificationEvent {
         this.buildName = buildName;
         this.buildUrl = buildUrl;
         this.event = event;
+        this.text = "";
     }
 
     public String projectName;
     public String buildName;
     public String buildUrl;
     public String event;
+    public String text;
 }
